@@ -1,3 +1,9 @@
+//Mengatur antarmuka utama pengguna untuk sistem antrian bank.
+//Memanggil fungsi-fungsi dari queue.h, customer.h, dan utils.h.
+//Dependency:
+//queue.h, customer.h, utils.h
+
+
 #include <stdio.h>
 #include "queue.h"
 #include "customer.h"
