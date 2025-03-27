@@ -1,3 +1,6 @@
+//Mendefinisikan struktur data queue menggunakan linked list.
+//Dependency: customer.h
+
 #ifndef QUEUE_H
 #define QUEUE_H
 
