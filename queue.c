@@ -1,3 +1,7 @@
+//Berisi implementasi fungsi-fungsi yang dideklarasikan di queue.h.
+//Menggunakan linked list untuk menyimpan antrian pelanggan.
+//Dependency: queue.h
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "queue.h"
