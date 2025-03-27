@@ -1,62 +1,56 @@
-// main.c
-
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "pasien.h"
+#include "queue.h"
+#include "customer.h"
+#include "utils.h"
 
 int main() {
-    int pilihan;
-    char nama[50];
+    Queue queue;
+    initQueue(&queue);
+    int choice, id = 1;
+    char name[50], service[50];
 
-    do {
-        printf("\n=== Sistem Antrian Pasien Modular ===\n");
-        printf("1. Tambah Pasien ke Antrian\n");
-        printf("2. Tampilkan Antrian\n");
-        printf("3. Layani Pasien\n");
-        printf("4. Undo Pelayanan Terakhir\n");
-        printf("5. Tampilkan Pasien Selesai\n");
-        printf("6. Keluar\n");
-        printf("Pilihan Anda: ");
-        scanf("%d", &pilihan);
-        getchar(); // buang newline
+    while (1) {
+        clearScreen();
+        printf("=== Sistem Antrian Bank ===\n");
+        printf("1. Ambil Antrian\n");
+        printf("2. Proses Antrian\n");
+        printf("3. Cetak Antrian\n");
+        printf("4. Keluar\n");
+        printf("Pilihan: ");
+        scanf("%d", &choice);
 
-        switch (pilihan) {
+        switch (choice) {
             case 1:
-                printf("Nama pasien: ");
-                fgets(nama, sizeof(nama), stdin);
-                nama[strcspn(nama, "\n")] = '\0';
-                enqueue(nama);
+                printf("Masukkan Nama: ");
+                scanf(" %[^\n]", name);
+                printf("Masukkan Jenis Layanan: ");
+                scanf(" %[^\n]", service);
+                enqueue(&queue, createCustomer(id++, name, service));
+                printf("Antrian berhasil ditambahkan!\n");
                 break;
+
             case 2:
-                tampilQueue();
-                break;
-            case 3:
-                dequeue();
-                break;
-            case 4: {
-                char* undoNama = popUndo();
-                if (undoNama == NULL) {
-                    printf("Tidak ada yang bisa di-undo.\n");
+                if (!isQueueEmpty(&queue)) {
+                    Customer served = dequeue(&queue);
+                    printf("Melayani Pelanggan: %s (Nomor %d)\n", served.name, served.id);
                 } else {
-                    enqueue(undoNama);
-                    hapusPasienSelesai(undoNama);
-                    printf("Undo berhasil: %s dikembalikan ke antrian.\n", undoNama);
+                    printf("Tidak ada antrian.\n");
                 }
                 break;
-            }
-            case 5:
-                tampilPasienSelesai();
+
+            case 3:
+                printQueue(&queue);
                 break;
-            case 6:
+
+            case 4:
                 printf("Terima kasih!\n");
-                break;
+                return 0;
+
             default:
                 printf("Pilihan tidak valid!\n");
         }
-
-    } while (pilihan != 6);
-
+        pauseProgram();
+    }
     return 0;
 }
 
