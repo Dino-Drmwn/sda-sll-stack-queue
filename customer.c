@@ -1,3 +1,7 @@
+//Mengimplementasikan fungsi createCustomer() untuk menginisialisasi data pelanggan.
+//Menggunakan strcpy() untuk menyalin string nama dan jenis layanan ke dalam struct Customer.
+//Dependency: costumer.h
+
 #include <stdio.h>
 #include <string.h>
 #include "customer.h"
